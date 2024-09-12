@@ -10,6 +10,7 @@ import {
   Space,
   Spin,
 } from "antd";
+import Title from "antd/es/typography/Title";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import NavBar from "../Component/Shared/Navbar";
@@ -69,6 +70,11 @@ const EditProduct: React.FC = () => {
       }}
     >
       <NavBar />
+      <Title
+        style={{ marginBottom: "2rem", fontWeight: "bold", fontSize: "30px" }}
+      >
+        Edit Product
+      </Title>
       <Form
         style={{
           padding: "1rem",
@@ -81,8 +87,6 @@ const EditProduct: React.FC = () => {
         onFinish={handleSubmit}
         initialValues={product}
       >
-        <h1>Edit Product</h1>
-
         {/* Title */}
         <Form.Item
           name="title"
