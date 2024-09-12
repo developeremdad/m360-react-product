@@ -1,4 +1,4 @@
-import { Button, Grid, Table, TableColumnsType } from "antd";
+import { Button, Grid, Pagination, Table, TableColumnsType } from "antd";
 import Title from "antd/es/typography/Title";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -21,9 +21,10 @@ type TTableData = Pick<
 
 const ProductList: React.FC = () => {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const { data, isLoading } = useGetProductsQuery({
-    limit: 10,
-    skip: (page - 1) * 10,
+    limit: limit,
+    skip: (page - 1) * limit,
   });
 
   const screens = useBreakpoint();
@@ -43,9 +44,15 @@ const ProductList: React.FC = () => {
     })
   );
 
-  const columns1: TableColumnsType<TTableData> = [
+  const columns: TableColumnsType<TTableData> = [
     { title: "ID", dataIndex: "id", key: "id", responsive: ["md"] },
-    { title: "Title", dataIndex: "title", key: "title" },
+    {
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
+      fixed: "left",
+      width: 200,
+    },
     { title: "Category", dataIndex: "category", key: "category" },
     { title: "Price", dataIndex: "price", key: "price" },
     {
@@ -61,6 +68,8 @@ const ProductList: React.FC = () => {
     {
       title: "Actions",
       key: "actions",
+      fixed: "right",
+      width: 100,
       render: (record: TProduct) => (
         <Link to={`/product/${record.id}`}>
           <Button type="primary">View Details</Button>
@@ -68,6 +77,11 @@ const ProductList: React.FC = () => {
       ),
     },
   ];
+
+  const handlePaginationChange = (pageNumber: number, pageSize: number) => {
+    setPage(pageNumber);
+    setLimit(pageSize);
+  };
 
   return (
     <div
@@ -91,18 +105,29 @@ const ProductList: React.FC = () => {
           borderRadius: "8px",
           overflow: "hidden",
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+          marginBottom: "20px",
         }}
-        columns={columns1}
+        columns={columns}
         dataSource={tableData}
         loading={isLoading}
-        pagination={{
-          current: page,
-          pageSize: 10,
-          total: data?.total,
-          onChange: (page) => setPage(page),
-        }}
-        rowKey="id"
+        pagination={false}
       />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingBottom: "15px",
+        }}
+      >
+        <Pagination
+          size="default"
+          total={data?.total}
+          showTotal={(total, range) => `${range[0]}-${range[1]} of ${total}`}
+          defaultPageSize={20}
+          defaultCurrent={1}
+          onChange={handlePaginationChange}
+        />
+      </div>
     </div>
   );
 };
