@@ -1,5 +1,6 @@
 import {
   Alert,
+  Breadcrumb,
   Card,
   Col,
   Divider,
@@ -11,7 +12,7 @@ import {
   Typography,
 } from "antd";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import NavBar from "../Component/Shared/Navbar";
 import { useGetProductByIdQuery } from "../redux/features/product/productApi";
 import "../Styles/ProductDetails.css";
@@ -61,6 +62,18 @@ const ProductDetail: React.FC = () => {
       }}
     >
       <NavBar />
+      <Breadcrumb
+        style={{
+          marginBottom: "2rem",
+          fontWeight: "bold",
+          fontSize: "20px",
+        }}
+      >
+        <Breadcrumb.Item>
+          <Link to="/">Products</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>{id}</Breadcrumb.Item>
+      </Breadcrumb>
       <div className="product-detail-container">
         <Row gutter={[16, 16]}>
           {/* Product Image Section */}

@@ -1,23 +1,23 @@
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Rate,
-  Select,
-  Space,
-  Spin,
+    Breadcrumb,
+    Button,
+    Form,
+    Input,
+    InputNumber,
+    message,
+    Rate,
+    Select,
+    Space,
+    Spin,
 } from "antd";
-import Title from "antd/es/typography/Title";
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import NavBar from "../Component/Shared/Navbar";
 import {
-  useGetCategoriesQuery,
-  useGetProductByIdQuery,
-  useUpdateProductByIdMutation,
+    useGetCategoriesQuery,
+    useGetProductByIdQuery,
+    useUpdateProductByIdMutation,
 } from "../redux/features/product/productApi";
 import { TProduct } from "../types/Product.type";
 
@@ -70,11 +70,18 @@ const EditProduct: React.FC = () => {
       }}
     >
       <NavBar />
-      <Title
-        style={{ marginBottom: "2rem", fontWeight: "bold", fontSize: "30px" }}
+      <Breadcrumb
+        style={{
+          marginBottom: "2rem",
+          fontWeight: "bold",
+          fontSize: "20px",
+        }}
       >
-        Edit Product
-      </Title>
+        <Breadcrumb.Item>
+          <Link to="/">Products</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>{id}</Breadcrumb.Item>
+      </Breadcrumb>
       <Form
         style={{
           padding: "1rem",

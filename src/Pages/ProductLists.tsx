@@ -1,12 +1,16 @@
-import { Button, Grid, Pagination, Space, Table, TableColumnsType } from "antd";
-import Title from "antd/es/typography/Title";
+import {
+  Breadcrumb,
+  Button,
+  Pagination,
+  Space,
+  Table,
+  TableColumnsType,
+} from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../Component/Shared/Navbar";
 import { useGetProductsQuery } from "../redux/features/product/productApi";
 import { TProduct } from "../types/Product.type";
-
-const { useBreakpoint } = Grid;
 
 type TProductData = {
   limit: number;
@@ -27,8 +31,6 @@ const ProductList: React.FC = () => {
     limit: limit,
     skip: (page - 1) * limit,
   });
-
-  const screens = useBreakpoint();
 
   const productData: TProductData = data;
 
@@ -123,12 +125,17 @@ const ProductList: React.FC = () => {
     >
       <Navbar />
       <div>
-        <Title
-          level={screens.md ? 2 : 3}
-          style={{ marginBottom: "2rem", fontWeight: "bold" }}
+        <Breadcrumb
+          style={{
+            marginBottom: "2rem",
+            fontWeight: "bold",
+            fontSize: "20px",
+          }}
         >
-          Product List
-        </Title>
+          <Breadcrumb.Item>
+            <Link to="/">Product List</Link>
+          </Breadcrumb.Item>
+        </Breadcrumb>
       </div>
       <Table
         style={{
