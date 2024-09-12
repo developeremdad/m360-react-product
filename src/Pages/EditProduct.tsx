@@ -47,7 +47,7 @@ const EditProduct: React.FC = () => {
       <Form.List name="reviews">
         {(fields, { add, remove }) => (
           <>
-            {fields.map(({ key, name, fieldKey }) => (
+            {fields.map(({ key, name }) => (
               <Form.Item key={key} label="Review" name={[name, "review"]}>
                 <Input />
                 <Button onClick={() => remove(name)}>Remove Review</Button>
