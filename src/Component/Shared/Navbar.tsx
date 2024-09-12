@@ -10,10 +10,6 @@ const items: MenuItem[] = [
     key: "products",
     label: <Link to="/">Products</Link>,
   },
-  {
-    label: "Navigation Two",
-    key: "app",
-  },
 ];
 
 const NavBar: React.FC = () => {

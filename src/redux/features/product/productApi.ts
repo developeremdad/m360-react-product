@@ -1,4 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { TCategory } from "../../../types/Categories.type";
+import { TProduct } from "../../../types/Product.type";
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
@@ -13,16 +15,18 @@ export const productsApi = createApi({
       query: (id) => `products/${id}`,
     }),
 
-    getCategories: builder.query({
-      query: () => "products/categories",
-    }),
-
-    updateProduct: builder.mutation({
-      query: ({ id, ...data }) => ({
+    updateProductById: builder.mutation<
+      TProduct,
+      { id: string; data: Partial<TProduct> }
+    >({
+      query: ({ id, data }) => ({
         url: `products/${id}`,
         method: "PATCH",
         body: data,
       }),
+    }),
+    getCategories: builder.query<TCategory[], void>({
+      query: () => `products/categories`,
     }),
   }),
 });
@@ -31,5 +35,5 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useGetCategoriesQuery,
-  useUpdateProductMutation,
+  useUpdateProductByIdMutation,
 } = productsApi;

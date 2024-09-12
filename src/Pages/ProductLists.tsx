@@ -1,4 +1,4 @@
-import { Button, Grid, Pagination, Table, TableColumnsType } from "antd";
+import { Button, Grid, Pagination, Space, Table, TableColumnsType } from "antd";
 import Title from "antd/es/typography/Title";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -36,6 +36,7 @@ const ProductList: React.FC = () => {
 
   const tableData = products?.map(
     ({ id, title, category, price, brand, stock, thumbnail }) => ({
+      key: id,
       id: id,
       title,
       category,
@@ -50,7 +51,6 @@ const ProductList: React.FC = () => {
     { title: "ID", dataIndex: "id", key: "id", responsive: ["md"], width: 30 },
     {
       title: "Image",
-      // dataIndex: "thumbnail",
       key: "thumbnail",
 
       fixed: "left",
@@ -94,11 +94,16 @@ const ProductList: React.FC = () => {
       title: "Actions",
       key: "actions",
       fixed: "right",
-      width: 100,
+      width: 150,
       render: (item: TProduct) => (
-        <Link to={`/product/${item.id}`}>
-          <Button type="primary">View Details</Button>
-        </Link>
+        <Space>
+          <Link to={`/product/${item.id}`}>
+            <Button type="primary">View</Button>
+          </Link>
+          <Link to={`/product/edit/${item.id}`}>
+            <Button type="default">Edit</Button>
+          </Link>
+        </Space>
       ),
     },
   ];
